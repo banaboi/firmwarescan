@@ -8,12 +8,6 @@ import re
 
 
 def _normalise(s: str) -> str:
-    """
-    Example: "FreeRTOS" -> "freertos"
-    Example: "FreeRTOS-Kernel" -> "freertoskernel"
-    Example: "FreeRTOS_Kernel" -> "freertoskernel"
-    Example: "FreeRTOS Kernel" -> "freertoskernel"
-    """
     return re.sub(r"[-_.\s]", "", s).lower()
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "component_db.json")

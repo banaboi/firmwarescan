@@ -134,12 +134,21 @@ Walks source tree for `version.h`, `*_version.h`, `*_version.c` etc. Applies the
 
 ### 8. `suppress.py` — basic suppression
 
-Reads `.firmwarescan.yml` `suppress:` block. Each entry: `cve_id`, `reason` (required), `expires`. Filters `Finding` list before reporting. Warns on expired suppressions.
+Reads a `.firmwarescan.yml` file containing a `suppress:` block. Each entry requires `cve_id`, `reason`, and an optional `expires` date. Filters the `Finding` list before reporting and warns when a suppression has expired.
+
+```yaml
+suppress:
+  - cve_id: CVE-2021-31571
+    reason: "Not exploitable — we don't use the affected API"
+    expires: 2026-12-01
+```
+
+Custom component CPE mappings are out of MVP scope — add new components directly to `db/component_db.json` instead.
 
 ### 9. `cli.py` — entry point
 
 ```
-firmwarescan scan [PATH] [--format terminal|json] [--fail-on CRITICAL|HIGH|MEDIUM] [--config .firmwarescan.yml]
+firmwarescan [PATH] [--format terminal|json] [--fail-on CRITICAL|HIGH|MEDIUM] [--config .firmwarescan.yml]
 ```
 
 Orchestrates: discover → DB resolve → NVD lookup → suppress → report → exit code.

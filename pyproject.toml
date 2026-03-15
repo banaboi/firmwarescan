@@ -11,6 +11,7 @@ requires-python = ">=3.9"
 license = { text = "MIT" }
 dependencies = [
     "requests>=2.28",
+    "pyyaml>=6.0",
 ]
 
 [project.scripts]
@@ -20,6 +21,7 @@ firmwarescan = "cli:main"
 dev = [
     "pytest>=7.0",
     "pytest-cov",
+    "types-PyYAML",
 ]
 
 [tool.setuptools.packages.find]

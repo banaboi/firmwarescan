@@ -1,0 +1,4 @@
+suppress:
+  # - cve_id: CVE-YYYY-XXXXX
+  #   reason: "Required — explain why this CVE is accepted or not exploitable"
+  #   expires: YYYY-MM-DD
