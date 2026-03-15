@@ -1,0 +1,255 @@
+{
+  "_comment": "FirmwareScan embedded component CPE mapping database. Each entry maps common embedded library names and version string patterns to their canonical NVD CPE 2.3 identifiers.",
+  "_version": "0.1.0",
+  "components": [
+    {
+      "name": "FreeRTOS",
+      "aliases": [
+        "freertos",
+        "FreeRTOS-Kernel",
+        "freertos-kernel",
+        "FreeRTOS_Kernel"
+      ],
+      "cpe_vendor": "amazon",
+      "cpe_product": "freertos",
+      "cpe_part": "o",
+      "cpe_template": "cpe:2.3:o:amazon:freertos:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "FreeRTOS[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "FREERTOS_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "tskKERNEL_VERSION_NUMBER[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
+      ],
+      "cmake_fetch_names": [
+        "FreeRTOS-Kernel",
+        "freertos",
+        "FreeRTOS"
+      ],
+      "notes": "Amazon stewards FreeRTOS; NVD vendor is 'amazon'. FreeRTOS-Kernel splits from the full IoT SDK in v10+.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "Mbed TLS",
+      "aliases": [
+        "mbedtls",
+        "mbedTLS",
+        "mbed-tls",
+        "mbed_tls",
+        "polarssl"
+      ],
+      "cpe_vendor": "arm",
+      "cpe_product": "mbed_tls",
+      "cpe_part": "a",
+      "cpe_template": "cpe:2.3:a:arm:mbed_tls:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "MBEDTLS_VERSION_STRING[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "mbedtls[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "MBEDTLS_VERSION_MAJOR\\s+(\\d+).*MBEDTLS_VERSION_MINOR\\s+(\\d+).*MBEDTLS_VERSION_PATCH\\s+(\\d+)"
+      ],
+      "cmake_fetch_names": [
+        "mbedtls",
+        "MbedTLS",
+        "mbed-tls"
+      ],
+      "notes": "Older NVD entries use vendor 'mbed' (deprecated). Current canonical vendor is 'arm'. Project now maintained under Trusted Firmware.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "lwIP",
+      "aliases": [
+        "lwip",
+        "lwIP",
+        "lwip_project"
+      ],
+      "cpe_vendor": "lwip_project",
+      "cpe_product": "lwip",
+      "cpe_part": "a",
+      "cpe_template": "cpe:2.3:a:lwip_project:lwip:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "LWIP_VERSION_STRING[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "lwip[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "LWIP_VERSION_MAJOR\\s+(\\d+).*LWIP_VERSION_MINOR\\s+(\\d+).*LWIP_VERSION_REVISION\\s+(\\d+)"
+      ],
+      "cmake_fetch_names": [
+        "lwip",
+        "lwIP"
+      ],
+      "notes": "NVD vendor is 'lwip_project', not 'gnu' or 'savannah'.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "U-Boot",
+      "aliases": [
+        "uboot",
+        "u-boot",
+        "das_u-boot",
+        "U_Boot"
+      ],
+      "cpe_vendor": "denx",
+      "cpe_product": "u-boot",
+      "cpe_part": "a",
+      "cpe_template": "cpe:2.3:a:denx:u-boot:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "U_BOOT_VERSION[\\s\"'=]+([0-9]{4}\\.[0-9]{2}(?:-rc[0-9]+)?)",
+        "u-boot[\\s_-]*[Vv]?([0-9]{4}\\.[0-9]{2}(?:-rc[0-9]+)?)",
+        "VERSION\\s*=\\s*([0-9]{4}).*PATCHLEVEL\\s*=\\s*([0-9]{2})"
+      ],
+      "cmake_fetch_names": [
+        "u-boot",
+        "uboot"
+      ],
+      "notes": "U-Boot uses a YYYY.MM release cadence. NVD vendor is 'denx' (DENX Software Engineering). Version strings often appear as '2023.04'.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "Zephyr RTOS",
+      "aliases": [
+        "zephyr",
+        "zephyrproject",
+        "zephyr-rtos",
+        "zephyr_rtos"
+      ],
+      "cpe_vendor": "zephyrproject",
+      "cpe_product": "zephyr",
+      "cpe_part": "o",
+      "cpe_template": "cpe:2.3:o:zephyrproject:zephyr:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "ZEPHYR_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "zephyr[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "VERSION_MAJOR\\s+(\\d+).*VERSION_MINOR\\s+(\\d+).*PATCHLEVEL\\s+(\\d+)"
+      ],
+      "cmake_fetch_names": [
+        "zephyr",
+        "Zephyr"
+      ],
+      "notes": "CPE part is 'o' (OS). NVD vendor is 'zephyrproject'.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "OpenSSL",
+      "aliases": [
+        "openssl",
+        "OpenSSL",
+        "open_ssl"
+      ],
+      "cpe_vendor": "openssl",
+      "cpe_product": "openssl",
+      "cpe_part": "a",
+      "cpe_template": "cpe:2.3:a:openssl:openssl:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "OPENSSL_VERSION_TEXT[\\s\"'=]+OpenSSL\\s+([0-9]+\\.[0-9]+\\.[0-9]+[a-z]?)",
+        "OPENSSL_VERSION_NUMBER[\\s\"'=]+(0x[0-9A-Fa-f]+)",
+        "openssl[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+[a-z]?)?)"
+      ],
+      "cmake_fetch_names": [
+        "OpenSSL",
+        "openssl"
+      ],
+      "notes": "Embedded builds often use a static OpenSSL subset. Version number may be a hex constant (OPENSSL_VERSION_NUMBER). OpenSSL 3.x changed version scheme.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "wolfSSL",
+      "aliases": [
+        "wolfssl",
+        "wolfSSL",
+        "wolfcrypt",
+        "wolfCrypt",
+        "CyaSSL"
+      ],
+      "cpe_vendor": "wolfssl",
+      "cpe_product": "wolfssl",
+      "cpe_part": "a",
+      "cpe_template": "cpe:2.3:a:wolfssl:wolfssl:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "LIBWOLFSSL_VERSION_STRING[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "wolfssl[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "WOLFSSL_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
+      ],
+      "cmake_fetch_names": [
+        "wolfssl",
+        "wolfSSL"
+      ],
+      "notes": "wolfCrypt is the crypto core bundled with wolfSSL; CVEs are filed under the wolfssl product. Formerly known as CyaSSL.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    },
+    {
+      "name": "littlefs",
+      "aliases": [
+        "littlefs",
+        "lfs",
+        "little-fs"
+      ],
+      "cpe_vendor": null,
+      "cpe_product": null,
+      "cpe_part": null,
+      "cpe_template": null,
+      "version_patterns": [
+        "LFS_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "littlefs[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "LFS_VERSION_MAJOR\\s+(\\d+).*LFS_VERSION_MINOR\\s+(\\d+)"
+      ],
+      "cmake_fetch_names": [
+        "littlefs",
+        "lfs"
+      ],
+      "notes": "No NVD CPE entries exist for littlefs as of 2026-03. Vulnerabilities (if any) are filed under the embedding project (e.g. Zephyr). Version defined in lfs.h as LFS_VERSION packed integer or separate MAJOR/MINOR macros. Monitor GHSA for future coverage.",
+      "cpe_verified": false
+    },
+    {
+      "name": "FatFs",
+      "aliases": [
+        "fatfs",
+        "FatFs",
+        "FATFS",
+        "fat_fs",
+        "chan-fatfs"
+      ],
+      "cpe_vendor": null,
+      "cpe_product": null,
+      "cpe_part": null,
+      "cpe_template": null,
+      "version_patterns": [
+        "FATFS[\\s_]?[Vv]?([0-9]+[a-z]?)",
+        "FF_DEFINED[\\s\"'=]+([0-9]+)",
+        "_FATFS[\\s\"'=]+([0-9]+[a-z]?)"
+      ],
+      "cmake_fetch_names": [
+        "fatfs",
+        "FatFs"
+      ],
+      "notes": "No NVD CPE entries exist for FatFs as of 2026-03. No CVEs have been filed against it in NVD. Version defined as _FATFS or FF_DEFINED integer constant in ffconf.h. Retained in database for inventory purposes \u2014 extractor will detect it but report no CVE data.",
+      "cpe_verified": false
+    },
+    {
+      "name": "libcoap",
+      "aliases": [
+        "libcoap",
+        "coap",
+        "coap-c"
+      ],
+      "cpe_vendor": "libcoap",
+      "cpe_product": "libcoap",
+      "cpe_part": "a",
+      "cpe_template": "cpe:2.3:a:libcoap:libcoap:{version}:*:*:*:*:*:*:*",
+      "version_patterns": [
+        "LIBCOAP_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "libcoap[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "COAP_PACKAGE_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
+      ],
+      "cmake_fetch_names": [
+        "libcoap",
+        "coap"
+      ],
+      "notes": "Active CVE history \u2014 multiple HIGH severity issues in 4.3.x. NVD vendor is 'libcoap'.",
+      "cpe_verified": true,
+      "cpe_verified_date": "2026-03-15"
+    }
+  ]
+}

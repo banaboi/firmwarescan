@@ -1,0 +1,30 @@
+---
+description: No docstrings or inline comments — code should read like a poem
+globs: **/*.py
+alwaysApply: false
+---
+
+# No Docstrings or Inline Comments
+
+Never add docstrings to functions. Never add comments above or beside lines of code.
+
+A function's name, arguments, and body should speak for themselves. Comments duplicate meaning, create a maintenance burden when the code changes, and can actively mislead when they fall out of sync.
+
+```python
+# BAD
+def lookup(dependency_name: str) -> dict | None:
+    """Look up a dependency in the component database."""
+    # Normalise the name before comparing
+    needle = _normalise(dependency_name)
+    # Iterate over all components
+    for component in db["components"]:
+        ...
+
+# GOOD
+def lookup(dependency_name: str) -> dict | None:
+    needle = _normalise(dependency_name)
+    for component in db["components"]:
+        ...
+```
+
+Only add a comment when there is no other way to convey the information — for example, a non-obvious workaround for an external system's bug, or a legal/licence notice.
