@@ -15,9 +15,8 @@
       "cpe_part": "o",
       "cpe_template": "cpe:2.3:o:amazon:freertos:{version}:*:*:*:*:*:*:*",
       "version_patterns": [
-        "FreeRTOS[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "FREERTOS_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "tskKERNEL_VERSION_NUMBER[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
+        "tskKERNEL_VERSION_NUMBER[^\"]*\"V?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "tskKERNEL_VERSION_MAJOR\\s+(\\d+).*?tskKERNEL_VERSION_MINOR\\s+(\\d+).*?tskKERNEL_VERSION_BUILD\\s+(\\d+)"
       ],
       "cmake_fetch_names": [
         "FreeRTOS-Kernel",
@@ -42,9 +41,8 @@
       "cpe_part": "a",
       "cpe_template": "cpe:2.3:a:arm:mbed_tls:{version}:*:*:*:*:*:*:*",
       "version_patterns": [
-        "MBEDTLS_VERSION_STRING[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "mbedtls[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "MBEDTLS_VERSION_MAJOR\\s+(\\d+).*MBEDTLS_VERSION_MINOR\\s+(\\d+).*MBEDTLS_VERSION_PATCH\\s+(\\d+)"
+        "MBEDTLS_VERSION_STRING\\s+\"([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "MBEDTLS_VERSION_MAJOR\\s+(\\d+).*?MBEDTLS_VERSION_MINOR\\s+(\\d+).*?MBEDTLS_VERSION_PATCH\\s+(\\d+)"
       ],
       "cmake_fetch_names": [
         "mbedtls",
@@ -67,9 +65,7 @@
       "cpe_part": "a",
       "cpe_template": "cpe:2.3:a:lwip_project:lwip:{version}:*:*:*:*:*:*:*",
       "version_patterns": [
-        "LWIP_VERSION_STRING[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "lwip[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "LWIP_VERSION_MAJOR\\s+(\\d+).*LWIP_VERSION_MINOR\\s+(\\d+).*LWIP_VERSION_REVISION\\s+(\\d+)"
+        "LWIP_VERSION_MAJOR\\s+(\\d+).*?LWIP_VERSION_MINOR\\s+(\\d+).*?LWIP_VERSION_REVISION\\s+(\\d+)"
       ],
       "cmake_fetch_names": [
         "lwip",
@@ -117,9 +113,7 @@
       "cpe_part": "o",
       "cpe_template": "cpe:2.3:o:zephyrproject:zephyr:{version}:*:*:*:*:*:*:*",
       "version_patterns": [
-        "ZEPHYR_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "zephyr[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "VERSION_MAJOR\\s+(\\d+).*VERSION_MINOR\\s+(\\d+).*PATCHLEVEL\\s+(\\d+)"
+        "VERSION_MAJOR\\s*=\\s*(\\d+).*?VERSION_MINOR\\s*=\\s*(\\d+).*?PATCHLEVEL\\s*=\\s*(\\d+)"
       ],
       "cmake_fetch_names": [
         "zephyr",
@@ -168,7 +162,6 @@
       "cpe_template": "cpe:2.3:a:wolfssl:wolfssl:{version}:*:*:*:*:*:*:*",
       "version_patterns": [
         "LIBWOLFSSL_VERSION_STRING[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "wolfssl[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
         "WOLFSSL_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
       ],
       "cmake_fetch_names": [
@@ -191,15 +184,13 @@
       "cpe_part": null,
       "cpe_template": null,
       "version_patterns": [
-        "LFS_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "littlefs[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "LFS_VERSION_MAJOR\\s+(\\d+).*LFS_VERSION_MINOR\\s+(\\d+)"
+        "LFS_VERSION\\s+(0x[0-9A-Fa-f]+)"
       ],
       "cmake_fetch_names": [
         "littlefs",
         "lfs"
       ],
-      "notes": "No NVD CPE entries exist for littlefs as of 2026-03. Vulnerabilities (if any) are filed under the embedding project (e.g. Zephyr). Version defined in lfs.h as LFS_VERSION packed integer or separate MAJOR/MINOR macros. Monitor GHSA for future coverage.",
+      "notes": "No NVD CPE entries exist for littlefs as of 2026-03. Vulnerabilities (if any) are filed under the embedding project (e.g. Zephyr). Version is a packed hex constant: LFS_VERSION 0x00020009 = major 0x0002, minor 0x0009. Extractor must decode: major = value >> 16, minor = value & 0xffff. Monitor GHSA for future coverage.",
       "cpe_verified": false
     },
     {
@@ -239,9 +230,8 @@
       "cpe_part": "a",
       "cpe_template": "cpe:2.3:a:libcoap:libcoap:{version}:*:*:*:*:*:*:*",
       "version_patterns": [
-        "LIBCOAP_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "libcoap[\\s_-]*[Vv]?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
-        "COAP_PACKAGE_VERSION[\\s\"'=]+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
+        "LIBCOAP_PACKAGE_VERSION\\s+\"([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+        "project\\s*\\(\\s*libcoap\\s+VERSION\\s+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"
       ],
       "cmake_fetch_names": [
         "libcoap",
