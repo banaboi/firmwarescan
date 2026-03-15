@@ -19,11 +19,6 @@ def main() -> None:
         help="Path to the firmware project root.",
     )
     parser.add_argument(
-        "--format",
-        choices=["terminal", "json"],
-        help="Output format.",
-    )
-    parser.add_argument(
         "--fail-on",
         choices=["CRITICAL", "HIGH", "MEDIUM", "LOW"],
         default=None,
@@ -52,12 +47,7 @@ def _run_scan(args: argparse.Namespace) -> None:
     dependencies.extend(MakefileExtractor().extract(args.path))
 
     findings.extend(lookup(dependency) for dependency in dependencies)
-    if args.format == "terminal":
-        render_terminal(dependencies, findings)
-    elif args.format == "json":
-        render_json(dependencies, findings)
-    else:
-        raise ValueError(f"Invalid format: {args.format}")
+    create_pdf(dependencies, findings)
 
 if __name__ == "__main__":
     main()

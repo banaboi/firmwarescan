@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-import yaml  # pyright: ignore[reportMissingModuleSource]
+import yaml # type: ignore
 from datetime import date
 from models import Finding
 

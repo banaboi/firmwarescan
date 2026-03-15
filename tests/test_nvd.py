@@ -1,8 +1,8 @@
 import time
-import pytest # pyright: ignore[reportMissingModuleSource]
+import pytest # type: ignore
 
 from models import Dependency, Finding
-from nvd import _cache_get, _cache_set, _connect, lookup
+from nvd import _cache_get, _cache_set, _CacheDB, _NVDClient, lookup
 
 
 @pytest.fixture(autouse=True)
@@ -55,26 +55,24 @@ def test_cache_hit_is_keyed_per_cpe():
 def test_stale_cache_returns_none():
     cpe = "cpe:2.3:a:freertos:freertos:10.4.3:*:*:*:*:*:*:*"
     past = int(time.time()) - (60 * 60 * 25)  # 25 hours ago
-    con = _connect()
-    con.execute(
-        "INSERT INTO cve_cache (cpe, data, fetched_at) VALUES (?, ?, ?)",
-        (cpe, '[]', past),
-    )
-    con.commit()
-    con.close()
+    with _CacheDB() as db:
+        db.execute(
+            "INSERT INTO cve_cache (cpe, data, fetched_at) VALUES (?, ?, ?)",
+            (cpe, '[]', past),
+        )
+        db.commit()
     assert _cache_get(cpe) is None
 
 
 def test_fresh_cache_within_ttl_is_returned():
     cpe = "cpe:2.3:a:freertos:freertos:10.4.3:*:*:*:*:*:*:*"
     recent = int(time.time()) - (60 * 60 * 23)  # 23 hours ago
-    con = _connect()
-    con.execute(
-        "INSERT INTO cve_cache (cpe, data, fetched_at) VALUES (?, ?, ?)",
-        (cpe, '[{"cve_id": "CVE-2021-31571", "cvss_score": 7.5, "severity": "HIGH", "description": "x", "nvd_url": "http://x"}]', recent),
-    )
-    con.commit()
-    con.close()
+    with _CacheDB() as db:
+        db.execute(
+            "INSERT INTO cve_cache (cpe, data, fetched_at) VALUES (?, ?, ?)",
+            (cpe, '[{"cve_id": "CVE-2021-31571", "cvss_score": 7.5, "severity": "HIGH", "description": "x", "nvd_url": "http://x"}]', recent),
+        )
+        db.commit()
     result = _cache_get(cpe)
     assert result is not None
     assert result[0]["cve_id"] == "CVE-2021-31571"
@@ -83,13 +81,12 @@ def test_fresh_cache_within_ttl_is_returned():
 def test_cache_overwrite_refreshes_timestamp():
     cpe = "cpe:2.3:a:freertos:freertos:10.4.3:*:*:*:*:*:*:*"
     past = int(time.time()) - (60 * 60 * 25)
-    con = _connect()
-    con.execute(
-        "INSERT INTO cve_cache (cpe, data, fetched_at) VALUES (?, ?, ?)",
-        (cpe, '[]', past),
-    )
-    con.commit()
-    con.close()
+    with _CacheDB() as db:
+        db.execute(
+            "INSERT INTO cve_cache (cpe, data, fetched_at) VALUES (?, ?, ?)",
+            (cpe, '[]', past),
+        )
+        db.commit()
 
     _cache_set(cpe, SAMPLE_FINDINGS)
     result = _cache_get(cpe)
@@ -113,7 +110,9 @@ def test_lookup_no_cpe_returns_empty():
     assert lookup(dep) == []
 
 
-def test_lookup_cache_miss_raises_not_implemented():
+def test_lookup_cache_miss_calls_fetch(monkeypatch):
     dep = make_dependency()
-    with pytest.raises(NotImplementedError):
-        lookup(dep)
+    monkeypatch.setattr(_NVDClient, "fetch", lambda self, cpe: SAMPLE_FINDINGS)
+    result = lookup(dep)
+    assert len(result) == 1
+    assert result[0].cve_id == "CVE-2021-31571"
